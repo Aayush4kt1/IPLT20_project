@@ -1,0 +1,221 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams Details</title>
+    <style>
+        .team-logo {
+            height: 500px;
+        }
+
+        .image-container {
+            display: flex;
+            flex-direction: row;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .align-team {
+            display: flex;
+            flex-direction: row; 
+            justify-content: space-around;
+        }
+
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 1em 2em;            
+        }
+
+        .team-name {
+            background: url("https://www.toptal.com/designers/subtlepatterns/uploads/moroccan-flower.png");
+            object-fit: cover;            
+            font-size: 42px;
+            text-align: center;
+            font-weight: 600;
+        }
+
+        .playing-player-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            margin: 3em 6em;
+        }
+
+        .bench-player-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            margin: 3em 6em;
+        }
+
+        .inner-card-align {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 50px;
+            margin-top: 2em;    
+        }
+
+        .player-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            padding: 20px;
+            text-align: center;            
+        }
+
+        .player-card:hover {
+            border: 1px solid #018AD1;
+        }
+
+
+        .small-card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            padding: 20px;
+            text-align: center;            
+        }
+
+        .card-title {
+            font-size: 42px;
+            line-height: 50px;
+            color: #4f82cc;
+        }
+
+        .card-sub {
+            font-size: 20px;
+        }
+
+        .player-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .player-price {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .playing-style {
+            font-size: 16px;
+            color: #888;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        .player-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto;
+            border-radius: 50%;
+            background-color: #f1f1f1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 32px;
+            color: #333;
+        }
+
+        .heading {
+            text-align: center;
+            margin-top: 3em;
+        }
+    </style>
+</head>
+<body style="padding: 1em 3em;">
+    <div class="team-container">
+        
+    </div>
+
+    <h1 class="heading">Playing XI</h1>
+    <div class="playing-player-container">
+        
+    </div>
+
+    <h1 class="heading">Bench</h1>
+    <div class="bench-player-container">
+        
+    </div>
+
+    <script src="const.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        team_name = urlParams.get("team");
+        
+        const playerArray = PlayerDetails.filter((player) => player["from"].toLowerCase() == team_name)        
+        
+        var myHTML = "";
+        
+        myHTML += '<div class="align-team">\
+            <div>\
+                <div class="card team-name">\
+                    <div>Team: '+TeamDetails[team_name]["full_name"]+'</div>\
+                </div>\
+                <div class="inner-card-align">\
+                    <div class="small-card">\
+                        <div class="card-title">'+playerArray.length+'</div>\
+                        <div class="card-sub">Total Players</div>\
+                    </div>\
+                    <div class="small-card">\
+                        <div class="card-title">'+TeamDetails[team_name]["top_batsman"]+'</div>\
+                        <div class="card-sub">Top Batsman</div>\
+                    </div>\
+                    <div class="small-card">\
+                        <div class="card-title">'+TeamDetails[team_name]["top_bowler"]+'</div>\
+                        <div class="card-sub">Top Bowler</div>\
+                    </div>\
+                    <div class="small-card">\
+                        <div class="card-title">'+TeamDetails[team_name]["won"]+'</div>\
+                        <div class="card-sub">Top Championships Won</div>\
+                    </div>\
+                </div>\
+            </div>\
+            <div class="image-container">\
+                <img class="team-logo" src="'+TeamDetails[team_name]["img"]+'" />\
+            <div>\
+        </div>'
+
+        document.querySelector(".team-container").innerHTML = myHTML;
+        
+
+        var playerHTML = "";
+        const playing = playerArray.filter((player) => player["isPlaying"]);
+        const bench = playerArray.filter((player) => player["isPlaying"] === false);
+
+        for (let i=0; i<playing.length; i++){
+            console.log(playing[i])
+            console.log(TeamDetails[playing[i]["from"]])
+            playerHTML += '<a href="player.html?id='+playing[i]["id"]+'">\
+                <div class="player-card">\
+                <div class="player-name">'+playing[i]["playerName"]+'</div>\
+                <div class="player-price">'+playing[i]["price"]+'</div>\
+                <div class="playing-style">Player Type: '+playing[i]["description"]+'</div>\
+            </div></a>'
+        }
+        
+        document.querySelector(".playing-player-container").innerHTML = playerHTML;
+
+        var benchHTML = "";
+        for (let i=0; i<bench.length; i++){
+            benchHTML += '<a href="player.html?id='+bench[i]["id"]+'">\
+                <div class="player-card">\
+                <div class="player-name">'+bench[i]["playerName"]+'</div>\
+                <div class="player-price">'+bench[i]["price"]+'</div>\
+                <div class="playing-style">Player Type: '+bench[i]["description"]+'</div>\
+            </div></a>'
+        }
+        document.querySelector(".bench-player-container").innerHTML = benchHTML;
+
+    </script>
+</body>
+</html>

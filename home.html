@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teams and Logos</title>
+    <style>
+            body {
+            font-family: Arial, sans-serif;
+            background-image: url("https://w0.peakpx.com/wallpaper/374/1010/HD-wallpaper-blue-shade-carbon-texture-black-dark-pattern.jpg");
+        }
+
+        .team-container {
+            text-align: center;
+            margin: 20px auto;
+            padding: 10px;
+            width: 400;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+            justify-content: center;
+            
+            
+        }
+
+        .team-logo {
+            width: 100%;
+            height: 100px;
+            margin-bottom: 10px;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            ;
+            
+        }
+
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            background-color: #fff;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-image: url("https://img.freepik.com/premium-vector/abstract-seamless-pattern-small-rhombus-pixels-white-colors_444390-9083.jpg");
+            
+        }
+
+        .card h3 {
+            font-size: 18px;
+            font-weight: bold;
+            margin-bottom: 5px;
+            
+        }
+
+        img {
+            width: 220px;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            align-items: center;
+            
+        }
+        
+        
+        
+    </style>
+</head>
+<body>
+    <div ><img src="https://www.iplt20.com/assets/images/teams-landing-logo.png" alt=""></div>
+
+    <div class="team-container">                
+    </div>
+    
+
+
+    <script src="const.js"></script>  
+
+    <script>
+        var myHTML = "";
+
+        for (let i = 0; i < Teams.length; i++) {
+            myHTML += '<div class="card">\
+                <img src="'+Teams[i]["img"]+'" />\
+                <h2>'+Teams[i]["full_name"]+'</h2>\
+                <h5>\
+                    <a href="team_details.html?team='+Teams[i]["name"]+'">Click here</a>\
+                </h5>\
+            </div>'
+        }
+        
+        document.querySelector(".team-container").innerHTML = myHTML;
+    </script>
+</body>
+</html>

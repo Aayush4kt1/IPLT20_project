@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Player</title>
+    <style>        
+        .card {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+            padding: 1em 2em;            
+        }   
+        
+        .player-name {
+            font-size: 24px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 10px;
+        }
+
+        .nplayer-price {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 10px;
+        }
+
+        .nplaying-style {
+            font-size: 18px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+
+        .nplaying-team {
+            font-size: 18px;
+            color: rgb(145, 0, 0);
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body style="padding: 1em 3em;">
+    <div class="player-container">
+        
+    </div>    
+    <script src="const.js"></script>
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const player_id = urlParams.get("id");
+        
+        const player_info = PlayerDetails.filter((player) => player["id"] == player_id)[0]        
+        
+        var myHTML = "";
+        
+        myHTML += '<div class="card">\
+                <div class="player-name">'+player_info["playerName"]+'</div>\
+                <div class="nplayer-price">Price: '+player_info["price"]+'</div>\
+                <div class="nplayer-team">Team: '+TeamDetails[player_info["from"]]["full_name"]+'</div>\
+                <div class="nplaying-style">Player Type: '+player_info["description"]+'</div>\
+            </div>'
+
+        document.querySelector(".player-container").innerHTML = myHTML;        
+    </script>
+</body>
+</html>
