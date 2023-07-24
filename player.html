@@ -9,36 +9,61 @@
             background-color: #fff;
             border-radius: 8px;
             box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-            padding: 1em 2em;            
+            padding: 1em 2em;     
+            width: 400px;      
+            margin: auto; 
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
         }   
         
         .player-name {
             font-size: 24px;
             font-weight: bold;
             color: #333;
-            margin-bottom: 10px;
+            margin-bottom: 20px;
         }
 
         .nplayer-price {
             font-size: 18px;
-            color: #555;
-            margin-bottom: 10px;
+            color: rgb(17, 0, 173);
+            margin-bottom: 20px;
         }
 
         .nplaying-style {
             font-size: 18px;
-            color: #888;
+            color: rgb(17, 0, 173);
             margin-bottom: 20px;
         }
 
-        .nplaying-team {
+        .nplayer-team {
             font-size: 18px;
-            color: rgb(145, 0, 0);
+            color: rgb(17, 0, 173);
             margin-bottom: 20px;
         }
+
+        .heading {
+            text-align: center;
+            margin-top: 1em;
+        }
+
+        .img-logo {
+            height: 100px;
+        }
+
+        .center {
+            text-align: center;            
+        }
+
+        .back {
+            margin-top: 2em;
+        }
+        
     </style>
 </head>
 <body style="padding: 1em 3em;">
+    <div class="back"></div>
+    <h1 class="heading">Player Details</h1>
     <div class="player-container">
         
     </div>    
@@ -49,14 +74,23 @@
         
         const player_info = PlayerDetails.filter((player) => player["id"] == player_id)[0]        
         
-        var myHTML = "";
+
+        var backHTML = '<a href="team_details.html?team='+player_info["from"]+'">Back</a>'     
         
+        document.querySelector(".back").innerHTML = backHTML;        
+        
+        var myHTML = "";
         myHTML += '<div class="card">\
+            <div>\
                 <div class="player-name">'+player_info["playerName"]+'</div>\
                 <div class="nplayer-price">Price: '+player_info["price"]+'</div>\
-                <div class="nplayer-team">Team: '+TeamDetails[player_info["from"]]["full_name"]+'</div>\
                 <div class="nplaying-style">Player Type: '+player_info["description"]+'</div>\
-            </div>'
+            </div>\
+            <div class="center">\
+                <img class="img-logo" src="'+TeamDetails[player_info["from"]]["img"]+'" />\
+                <div>'+TeamDetails[player_info["from"]]["full_name"]+'</div>\
+            </div>\
+        </div>'
 
         document.querySelector(".player-container").innerHTML = myHTML;        
     </script>
